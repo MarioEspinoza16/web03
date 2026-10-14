@@ -11,39 +11,43 @@ class User
 
     public function getUsers()
     {
-        $this->db->query('SELECT * FROM usuarios');
+        $this->db->query(
+            'SELECT usuario AS nombre, contra AS contrasena
+             FROM usuarios'
+        );
+
         return $this->db->resultSet();
     }
 
     public function login($data)
     {
         $this->db->query(
-            'SELECT * FROM usuarios WHERE nombre = :nomb'
+            'SELECT usuario AS nombre, contra AS contrasena
+             FROM usuarios
+             WHERE usuario = :usuario'
         );
 
-        $this->db->bind(':nomb', $data['usuario']);
-        $usuario = $this->db->singleRow();
+        $this->db->bind(':usuario', $data['usuario']);
+        $user = $this->db->singleRow();
 
-        if (!$usuario) {
+        if (!$user) {
             return false;
         }
 
-        if (password_verify($data['contra'], $usuario->contrasena)) {
-            return $usuario;
-        }
-
-        return false;
+        return password_verify($data['contra'], $user->contrasena)
+            ? $user
+            : false;
     }
 
     public function register($data)
     {
         $this->db->query(
-            'INSERT INTO usuarios (nombre, contrasena)
-             VALUES (:nomb, :cont)'
+            'INSERT INTO usuarios (usuario, contra)
+             VALUES (:usuario, :contra)'
         );
 
-        $this->db->bind(':nomb', $data['usuario']);
-        $this->db->bind(':cont', $data['contra']);
+        $this->db->bind(':usuario', $data['usuario']);
+        $this->db->bind(':contra', $data['contra']);
 
         return $this->db->execute();
     }
