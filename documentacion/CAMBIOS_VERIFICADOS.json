@@ -1,0 +1,32 @@
+{
+  "originales_identicos": 24,
+  "incorporaciones_en_existentes": [
+    "php_01/app/views/categories/index.php",
+    "php_01/app/views/includes/menu.php"
+  ],
+  "nuevos": [
+    ".gitignore",
+    "LEEME_LABORATORIO.md",
+    "documentacion/verificar_northwind.sql",
+    "documentacion/GUIA_GITHUB.md",
+    "documentacion/ESTRUCTURA_VENTAS_REFERENCIA.txt",
+    "documentacion/Laboratorio_01_documentacion.pdf",
+    "documentacion/CAMBIOS_VERIFICADOS.json",
+    "public/javascript/lab_sales.js",
+    "app/helpers/lab_helper.php",
+    "app/controllers/Sales.php",
+    "app/controllers/Products.php",
+    "app/models/Product.php",
+    "app/models/Sale.php",
+    "app/config/config.example.php",
+    "app/libraries/LabDatabase.php",
+    "app/views/sales/index.php",
+    "app/views/sales/receipt.php",
+    "app/views/sales/form.php",
+    "app/views/lab/header.php",
+    "app/views/lab/footer.php",
+    "app/views/products/index.php",
+    "app/views/products/form.php"
+  ],
+  "adaptacion_ventas": "Orders y Order_Details ajustados a la estructura existente de Northwind. No se modificaron las tablas."
+}

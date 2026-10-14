@@ -1,0 +1,46 @@
+Estructura de las tablas de ventas utilizada en el proyecto
+
+Este archivo documenta las definiciones existentes de orders y order_details en Northwind. Su contenido es una referencia técnica; no se utiliza como script de instalación ni se ejecuta sobre las tablas existentes.
+
+CREATE TABLE `orders` (
+  `OrderID` int NOT NULL AUTO_INCREMENT,
+  `CustomerID` varchar(5) COLLATE latin1_spanish_ci NOT NULL,
+  `EmployeeID` int NOT NULL,
+  `OrderDate` datetime NOT NULL,
+  `RequiredDate` datetime NOT NULL,
+  `ShippedDate` datetime NOT NULL,
+  `ShipVia` int NOT NULL,
+  `Freight` decimal(19,4) NOT NULL,
+  `ShipName` varchar(40) COLLATE latin1_spanish_ci NOT NULL,
+  `ShipAddress` varchar(60) COLLATE latin1_spanish_ci NOT NULL,
+  `ShipCity` varchar(15) COLLATE latin1_spanish_ci NOT NULL,
+  `ShipRegion` varchar(15) COLLATE latin1_spanish_ci DEFAULT NULL,
+  `ShipPostalCode` varchar(10) COLLATE latin1_spanish_ci DEFAULT NULL,
+  `ShipCountry` varchar(15) COLLATE latin1_spanish_ci NOT NULL,
+  PRIMARY KEY (`OrderID`),
+  KEY `CustomerID` (`CustomerID`),
+  KEY `CustomersOrders` (`CustomerID`),
+  KEY `EmployeeID` (`EmployeeID`),
+  KEY `EmployeesOrders` (`EmployeeID`),
+  KEY `OrderDate` (`OrderDate`),
+  KEY `ShippedDate` (`ShippedDate`),
+  KEY `ShippersOrders` (`ShipVia`),
+  KEY `ShipPostalCode` (`ShipPostalCode`),
+  CONSTRAINT `fk_ordercustom` FOREIGN KEY (`CustomerID`) REFERENCES `customers` (`CustomerID`),
+  CONSTRAINT `fk_orderemploy` FOREIGN KEY (`EmployeeID`) REFERENCES `employees` (`EmployeeID`),
+  CONSTRAINT `fk_ordership` FOREIGN KEY (`ShipVia`) REFERENCES `shippers` (`ShipperID`)
+) ENGINE=InnoDB AUTO_INCREMENT=11078 DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+CREATE TABLE `order_details` (
+  `OrderID` int NOT NULL,
+  `ProductID` int NOT NULL,
+  `UnitPrice` decimal(19,4) NOT NULL,
+  `Quantity` smallint NOT NULL,
+  `Discount` double(7,2) NOT NULL,
+  PRIMARY KEY (`OrderID`,`ProductID`),
+  KEY `OrderID` (`OrderID`),
+  KEY `Ordersorder_details` (`OrderID`),
+  KEY `ProductID` (`ProductID`),
+  KEY `Productsorder_details` (`ProductID`),
+  CONSTRAINT `fk_ordetaorder` FOREIGN KEY (`OrderID`) REFERENCES `orders` (`OrderID`),
+  CONSTRAINT `fk_ordetaprod` FOREIGN KEY (`ProductID`) REFERENCES `products` (`ProductID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;

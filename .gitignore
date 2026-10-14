@@ -1,0 +1,6 @@
+# La configuración real se conserva localmente, fuera del repositorio.
+/app/config/config.php
+/public/diagnostico.php
+*.log
+.DS_Store
+Thumbs.db
